@@ -4,7 +4,7 @@ import requests
 # Hugging Face API setup
 API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1"
 headers = {
-    "Authorization": f"Bearer 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"  # 👈 Your real token here
+    "Authorization": f"Bearer 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"
 }
 
 # Call Mistral API
@@ -34,12 +34,9 @@ user_input = st.text_input("You: ", key="input")
 
 # Respond when the user submits a message
 if user_input:
-    # Build prompt from conversation history
-    prompt = "You are a helpful assistant.\n"
-    for user, bot in st.session_state.history:
-        prompt += f"User: {user}\nAssistant: {bot}\n"
-    prompt += f"User: {user_input}\nAssistant:"
-    
+    # Use only current user input as prompt
+    prompt = user_input
+
     # Get response from Mistral
     bot_response = call_mistral(prompt)
 
